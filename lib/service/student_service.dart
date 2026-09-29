@@ -2,7 +2,7 @@ import 'package:student_management/model/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class StudentService {
-  final Box<Student> studentBox = Hive.box<Student>("students");
+  final Box<Student> studentBox = Hive.box<Student>("student");
 Future<void>addStudent(Student student)async{
 await studentBox.add(student);
 }
