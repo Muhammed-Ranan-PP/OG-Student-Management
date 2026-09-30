@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/model/student_model.dart';
 import 'package:student_management/service/student_service.dart';
-import 'package:student_management/student_list.dart';
 
 class AddStudent extends StatefulWidget {
   const AddStudent({super.key});
@@ -26,9 +25,6 @@ class _AddStudentState extends State<AddStudent> {
       address: addressController.text.trim(),
     );
     service.addStudent(student);
-    setState(() {
-      StudentList();
-    });
     nameController.clear();
     ageController.clear();
     domainController.clear();

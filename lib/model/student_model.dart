@@ -7,9 +7,9 @@ class Student extends HiveObject {
   String name;
   @HiveField(1)
   int age ;
-  @HiveField(3)
+  @HiveField(2)
   String domain;
-  @HiveField(4)
+  @HiveField(3)
    String address;
   Student({
    required this.name,

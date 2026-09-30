@@ -19,8 +19,8 @@ class StudentAdapter extends TypeAdapter<Student> {
     return Student(
       name: fields[0] as String,
       age: (fields[1] as num).toInt(),
-      domain: fields[3] as String,
-      address: fields[4] as String,
+      domain: fields[2] as String,
+      address: fields[3] as String,
     );
   }
 
@@ -32,9 +32,9 @@ class StudentAdapter extends TypeAdapter<Student> {
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.age)
-      ..writeByte(3)
+      ..writeByte(2)
       ..write(obj.domain)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.address);
   }
 
