@@ -33,12 +33,18 @@ class _StudentListState extends State<StudentList> {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: 10.0,
+          ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async{
+              await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AddStudent()),
               );
+              setState(() {
+                student = service.getStudent();
+              });
             },
             child: Text("Add"),
           ),
@@ -49,8 +55,19 @@ class _StudentListState extends State<StudentList> {
               final currentStudent = student[index];
               return ListTile(
                 title: Text(currentStudent.name),
+                trailing: IconButton(onPressed: ()async{
+                    await service.deleteStudent(currentStudent.key);
+
+                    setState(() {
+                      student = service.getStudent();
+                    });
+                }, icon: Icon(Icons.delete)),
+                
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentDetail()
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentDetail(
+                    student: currentStudent,
+                    
+                  )
                   )
                   );
                 },
