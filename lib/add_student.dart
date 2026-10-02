@@ -3,8 +3,8 @@ import 'package:student_management/model/student_model.dart';
 import 'package:student_management/service/student_service.dart';
 
 class AddStudent extends StatefulWidget {
-  const AddStudent({super.key});
-
+  const AddStudent({super.key,this.student});
+final Student? student;
   @override
   State<AddStudent> createState() => _AddStudentState();
 }

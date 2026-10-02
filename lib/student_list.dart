@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/add_student.dart';
+import 'package:student_management/edit_student.dart';
 import 'package:student_management/model/student_model.dart';
 import 'package:student_management/service/student_service.dart';
 import 'package:student_management/student_detail.dart';
@@ -55,13 +56,23 @@ class _StudentListState extends State<StudentList> {
               final currentStudent = student[index];
               return ListTile(
                 title: Text(currentStudent.name),
-                trailing: IconButton(onPressed: ()async{
-                    await service.deleteStudent(currentStudent.key);
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                      IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditStudent()));
+                    }, 
+                    icon: Icon(Icons.edit)),
 
-                    setState(() {
-                      student = service.getStudent();
-                    });
-                }, icon: Icon(Icons.delete)),
+                    IconButton(onPressed: ()async{
+                        await service.deleteStudent(currentStudent.key);
+                    
+                        setState(() {
+                          student = service.getStudent();
+                        });
+                    }, icon: Icon(Icons.delete)),
+                  ],
+                ),
                 
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentDetail(
