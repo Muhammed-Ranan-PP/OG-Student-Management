@@ -17,14 +17,30 @@ class _AddStudentState extends State<AddStudent> {
   final domainController = TextEditingController();
   final addressController = TextEditingController();
 
-  void saveStudent() {
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.student != null){
+      nameController.text = widget.student!.name;
+      ageController.text = widget.student!.age.toString();
+      domainController.text = widget.student!.domain;
+      addressController.text = widget.student!.address;
+    }
+  }
+
+  Future<void> saveStudent()async {
     final student = Student(
       name: nameController.text.trim(),
       age: int.parse(ageController.text.trim()),
       domain: domainController.text.trim(),
       address: addressController.text.trim(),
     );
-    service.addStudent(student);
+    if(widget.student == null){
+    await service.addStudent(student);
+    }else{
+      service.updateStudent(widget.student!.key, student);
+    }
     nameController.clear();
     ageController.clear();
     domainController.clear();
@@ -63,8 +79,8 @@ class _AddStudentState extends State<AddStudent> {
               decoration: InputDecoration(hintText: "Address"),
             ),
             ElevatedButton(
-              onPressed: () {
-                saveStudent();
+              onPressed: () async{
+                await saveStudent();
                 Navigator.pop(context);
               },
               child: Text("Save"),

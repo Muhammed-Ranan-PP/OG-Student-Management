@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:student_management/add_student.dart';
-import 'package:student_management/edit_student.dart';
 import 'package:student_management/model/student_model.dart';
 import 'package:student_management/service/student_service.dart';
 import 'package:student_management/student_detail.dart';
@@ -15,10 +14,12 @@ class StudentList extends StatefulWidget {
 class _StudentListState extends State<StudentList> {
   final service = StudentService();
   List<Student> student = [];
+
   @override
   void initState() {
     super.initState();
     student = service.getStudent();
+    
   }
 
   @override
@@ -59,8 +60,11 @@ class _StudentListState extends State<StudentList> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                      IconButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditStudent()));
+                      IconButton(onPressed: ()async{
+                         await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddStudent(student: currentStudent,)));
+                         setState(() {
+                           student = service.getStudent();
+                         });
                     }, 
                     icon: Icon(Icons.edit)),
 
